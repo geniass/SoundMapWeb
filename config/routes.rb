@@ -1,7 +1,11 @@
 Soundmap::Application.routes.draw do
+  get "static_pages/index"
+
   get "map/map_view"
 
-  root :to => "map#view_map"
+  root :to => "static_pages#index"
+  match "map" => "map#view_map"
+  match "data" => "map#receive"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

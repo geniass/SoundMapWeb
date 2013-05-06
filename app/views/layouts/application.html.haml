@@ -1,3 +1,4 @@
+!!!
 %html
   %head
     %title Soundmap
@@ -7,6 +8,22 @@
     = csrf_meta_tags
 
   %body
+    .navbar.navbar-fixed-top.navbar-inverse
+      .navbar-inner
+        .container
+          %a.brand{:href => "/"} SoundMap
+
+          %ul.nav
+            %li
+              %a{:href => "/"} Home
+            %li
+              %a{:href => "/map"} Map
+
     = yield
+
+    .container
+      %hr
+      %footer
+        %p Ari Croock 2013
 
  
