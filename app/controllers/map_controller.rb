@@ -9,6 +9,7 @@ class MapController < ApplicationController
     params[:coords].each do |key,value|
       puts value
       puts "MOAR"
+      puts key
       puts "lat: " + value['lat']
       put "lon: " + value['lon']
       puts "db: " + value['db']
