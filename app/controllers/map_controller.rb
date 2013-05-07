@@ -4,8 +4,6 @@ class MapController < ApplicationController
 
   def receive
     cs = CoordinateSet.create
-    puts "params: "
-    puts params["coords"]
     params["coords"].each do |key,value| #the key isn't empty - the key is the value!
       cs.coordinates.new(:lat => key["lat"], :lon => key["lon"], :db => key["db"])
     end
