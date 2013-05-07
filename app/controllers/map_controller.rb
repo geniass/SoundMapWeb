@@ -7,7 +7,7 @@ class MapController < ApplicationController
     puts params[:coords]
     params[:coords].each do |key,value|
       puts value
-      cs.coordinates.new(value)
+      cs.coordinates.create(value)
     end
     cs.save
     respond_to do |format|
