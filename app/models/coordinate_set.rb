@@ -1,5 +1,5 @@
 class CoordinateSet < ActiveRecord::Base
-  attr_accessible :timestamp, :coordinates
+  attr_accessible :timestamp
 
   has_many :coordinates
 end

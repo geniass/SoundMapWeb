@@ -4,8 +4,10 @@ one:
   lat: 1.5
   lon: 1.5
   db: 1.5
+  coordinate_set_id: 1
 
 two:
   lat: 1.5
   lon: 1.5
   db: 1.5
+  coordinate_set_id: 1

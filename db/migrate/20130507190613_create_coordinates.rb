@@ -4,6 +4,7 @@ class CreateCoordinates < ActiveRecord::Migration
       t.float :lat
       t.float :lon
       t.float :db
+      t.references :coordinate_set
 
       t.timestamps
     end
