@@ -6,15 +6,8 @@ class MapController < ApplicationController
     cs = CoordinateSet.create
     puts "params: "
     puts params["coords"]
-    params["coords"].each do |key,value|
-      puts value
-      puts "MOAR"
-      puts key
-      puts "lat: " + value["lat"]
-      put "lon: " + value["lon"]
-      puts "db: " + value["db"]
-      puts
-      cs.coordinates.new(:lat => value["lat"], :lon => value["lon"], :db => value["db"])
+    params["coords"].each do |key,value| #the key isn't empty - the key is the value!
+      cs.coordinates.new(:lat => key["lat"], :lon => key["lon"], :db => key["db"])
     end
     cs.save
     respond_to do |format|
