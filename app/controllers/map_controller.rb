@@ -4,5 +4,6 @@ class MapController < ApplicationController
 
   def receive
     puts params
+    return params.to_json
   end
 end
