@@ -3,7 +3,11 @@ class MapController < ApplicationController
   end
 
   def receive
-    puts params
+    cs = CoordinateSet.create(:timestamp => Time.now)
+    params[:coords].each do |key,value|
+      puts value
+      cs.coordinates.new(value)
+    end
     respond_to do |format|
       format.json { render :json => params }
     end
