@@ -7,6 +7,10 @@ class MapController < ApplicationController
     puts params[:coords]
     params[:coords].each do |key,value|
       puts value
+      puts value['lat']
+      put value['lon']
+      puts value['db']
+      puts
       cs.coordinates.new(:lat => value['lat'], :lon => value['lon'], :db => value['db'])
     end
     cs.save
