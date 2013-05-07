@@ -3,7 +3,7 @@ class MapController < ApplicationController
   end
 
   def receive
-    cs = CoordinateSet.create(:timestamp => Time.now)
+    cs = CoordinateSet.create
     params[:coords].each do |key,value|
       puts value
       cs.coordinates.new(value)
