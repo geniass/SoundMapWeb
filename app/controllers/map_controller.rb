@@ -4,6 +4,8 @@ class MapController < ApplicationController
 
   def receive
     puts params
-    return params.to_json
+    respond_to do |format|
+      format.js { render :json => params }
+    end
   end
 end
