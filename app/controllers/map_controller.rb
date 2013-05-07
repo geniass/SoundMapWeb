@@ -4,9 +4,11 @@ class MapController < ApplicationController
 
   def receive
     cs = CoordinateSet.create
+    puts "params: "
     puts params[:coords]
     params[:coords].each do |key,value|
       puts value
+      puts "MOAR"
       puts "lat: " + value['lat']
       put "lon: " + value['lon']
       puts "db: " + value['db']
