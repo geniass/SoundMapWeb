@@ -36,6 +36,7 @@ initialise = ->
     {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
     {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
   ]
+  console.log(heatMapData)
 
   sanFrancisco = new google.maps.LatLng(37.774546, -122.433523)
 
@@ -53,9 +54,12 @@ initialise = ->
   heatmap.setMap(root.map)
 
 addHeatmapLayer = (json) ->
-  heatMapData = ({location: new google.maps.LatLng(value.lat, value.lon), weight: value.db} for key, value in json)
-  console.log(heatMapData)
+  for key,val of json
+    console.log(val.db)
+  heatMapData = ({location: new google.maps.LatLng(value.lat, value.lon), weight: value.db} for key, value of json)
+  console.log(JSON.stringify heatMapData)
   heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData
   })
   heatmap.setMap(root.map)
+  root.map.panTo(heatMapData[3].location)
