@@ -18,48 +18,26 @@ initialise = ->
         addHeatmapLayer(json)
     })
   )
-
-  heatMapData = [
-    {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
-    new google.maps.LatLng(37.782, -122.445),
-    {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
-    {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
-    {location: new google.maps.LatLng(37.782, -122.439), weight: 2},
-    new google.maps.LatLng(37.782, -122.437),
-    {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
-
-    {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
-    {location: new google.maps.LatLng(37.785, -122.445), weight: 2},
-    new google.maps.LatLng(37.785, -122.443),
-    {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5},
-    new google.maps.LatLng(37.785, -122.439),
-    {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
-    {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
-  ]
-  console.log(heatMapData)
-
+  
   sanFrancisco = new google.maps.LatLng(37.774546, -122.433523)
 
-  
   root.map = new google.maps.Map($('#map-canvas')[0], {
       center: sanFrancisco,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.SATELLITE
   })
 
-  heatmap = new google.maps.visualization.HeatmapLayer({
-      data: heatMapData
-  })
-
-  heatmap.setMap(root.map)
 
 addHeatmapLayer = (json) ->
   for key,val of json
     console.log(val.db)
   heatMapData = ({location: new google.maps.LatLng(value.lat, value.lon), weight: value.db} for key, value of json)
   console.log(JSON.stringify heatMapData)
-  heatmap = new google.maps.visualization.HeatmapLayer({
+  if root.heatmap
+    root.heatmap.setMap null
+
+  root.heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatMapData
   })
-  heatmap.setMap(root.map)
-  root.map.panTo(heatMapData[3].location)
+  root.heatmap.setMap(root.map)
+  root.map.panTo(heatMapData[0].location)
