@@ -2,10 +2,23 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+root = exports ? this
+
+
 $ ->
   initialise()
 
+
 initialise = ->
+  $('select').on('change', ->
+    # ajax call with select's value
+    $.ajax({
+      url: "data/" + this.value,
+      success: (json) ->
+        addHeatmapLayer(json)
+    })
+  )
+
   heatMapData = [
     {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
     new google.maps.LatLng(37.782, -122.445),
@@ -26,7 +39,8 @@ initialise = ->
 
   sanFrancisco = new google.maps.LatLng(37.774546, -122.433523)
 
-  map = new google.maps.Map($('#map-canvas')[0], {
+  
+  root.map = new google.maps.Map($('#map-canvas')[0], {
       center: sanFrancisco,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -36,12 +50,12 @@ initialise = ->
       data: heatMapData
   })
 
-  heatmap.setMap(map)
+  heatmap.setMap(root.map)
 
-
-initialize = ->
-    myOptions =
-      center: new google.maps.LatLng -34.397, 150.644
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    map = new google.maps.Map $('#map-canvas')[0], myOptions
+addHeatmapLayer = (json) ->
+  heatMapData = ({location: new google.maps.LatLng(value.lat, value.lon), weight: value.db} for key, value in json)
+  console.log(heatMapData)
+  heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatMapData
+  })
+  heatmap.setMap(root.map)

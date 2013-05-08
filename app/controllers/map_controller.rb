@@ -12,4 +12,13 @@ class MapController < ApplicationController
       format.json { render :json => params }
     end
   end
+
+  def send_coordinates
+    puts params[:id]
+    puts CoordinateSet.find(params[:id]).coordinates.all.to_json
+
+    respond_to do |t|
+      t.json { render :json => CoordinateSet.find(params[:id]).coordinates.all.to_json }
+    end
+  end
 end

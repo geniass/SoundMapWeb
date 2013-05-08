@@ -4,4 +4,7 @@
       %h1 Google Maps Heatmap
   .row
     .span12
+      = select(:coordinates, :id,  CoordinateSet.all.map { |c| [c.created_at, c.id]})
+  .row
+    .span12
       .map{:id => "map-canvas"}
