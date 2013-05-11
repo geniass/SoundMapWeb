@@ -3,8 +3,12 @@
   %head
     %title Soundmap
     = stylesheet_link_tag "application", :media => "all"
+
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwHHDQeaIfEpXU1HFqVyFw53fiM8V1eY&sensor=false&libraries=visualization,geometry"
     = javascript_include_tag "application"
-    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwHHDQeaIfEpXU1HFqVyFw53fiM8V1eY&sensor=false&libraries=visualization"
+
+    = javascript_include_tag 'heatmap'
+    = javascript_include_tag 'heatmap-gmaps'
     = csrf_meta_tags
 
   %body
