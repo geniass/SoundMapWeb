@@ -8,6 +8,9 @@ root = exports ? this
 $ ->
   initialise()
 
+  #$(window).resize(->
+  #  $('#map-canvas').css('height', window.innerHeight))
+
 
 initialise = ->
   $('select').on('change', ->
@@ -28,15 +31,19 @@ initialise = ->
       scaleControl: true
   })
 
-  root.heatmap = new HeatmapOverlay(root.map, {"radius": 10, "visible": true, "opacity": 60, legend: {position: "br", title: "Approximate dB Difference (Not absolute values)"}})
+  root.data = null
+  root.heatmap = new HeatmapOverlay(root.map, {"radius": 10, "visible": true, "opacity": 60, legend: {position: "br", title: "Approximate Relative Noise dB (Not absolute values)"}})
+
+  google.maps.event.addListenerOnce(root.map, "idle", ->
+    root.heatmap.setDataSet(root.data))
 
 
 
 addHeatmapLayer = (json) ->
-  data = ({lat: value.lat, lng: value.lon, count: value.db} for key, value of json)
-  console.log(data)
-  root.heatmap.setDataSet ({max: 200, data: data})
-  root.map.panTo (new google.maps.LatLng(data[0].lat, data[0].lng))
+  root.data = ({lat: value.lat, lng: value.lon, count: value.db} for key, value of json)
+  console.log(root.data)
+  root.heatmap.setDataSet ({max: 200, data: root.data})
+  root.map.panTo (new google.maps.LatLng(root.data[0].lat, root.data[0].lng))
 
 #Mercator --BEGIN--
 
