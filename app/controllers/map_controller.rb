@@ -15,10 +15,12 @@ class MapController < ApplicationController
 
   def send_coordinates
     puts params[:id]
-    puts CoordinateSet.find(params[:id]).coordinates.all.to_json
+    coordinates = CoordinateSet.find(params[:id]).coordinates
+    normalised = coordinates.where(coordinates.arel_table[:db].lt(500).and(coordinates.arel_table[:db].gt(50))).all
+    puts "Max dB: " + (coordinates.all.min_by {|e| e.db }).db.to_s
 
     respond_to do |t|
-      t.json { render :json => CoordinateSet.find(params[:id]).coordinates.all.to_json }
+      t.json { render :json => normalised.to_json }
     end
   end
 end
